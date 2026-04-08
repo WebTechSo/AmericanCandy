@@ -23,15 +23,30 @@ a{text-decoration:none;color:inherit}
 @keyframes floatOrb{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-50px) scale(1.1)}50%{transform:translate(-20px,40px) scale(0.9)}75%{transform:translate(40px,20px) scale(1.05)}}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:all .4s}
-nav.scrolled{background:rgba(15,10,26,0.7);backdrop-filter:blur(24px);padding:10px 0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0;transition:all .4s;overflow:visible}
+nav.scrolled{background:rgba(15,10,26,0.7);backdrop-filter:blur(24px);padding:0}
 nav.scrolled .nav-inner{box-shadow:0 8px 32px rgba(108,60,225,0.3),0 2px 8px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.15);border-color:rgba(108,60,225,0.3)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:60px;padding:12px 28px;box-shadow:0 4px 24px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.1)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1000px;margin:8px auto 0;background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:40px;padding:0 20px;box-shadow:0 4px 24px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.1);overflow:visible}
 nav::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:60%;height:8px;background:linear-gradient(90deg,transparent,var(--primary),transparent);filter:blur(8px);opacity:0;transition:opacity .4s}
 nav.scrolled::after{opacity:1}
-.logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(108,60,225,0.4));letter-spacing:0.5px}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-size:0.9rem;font-weight:500;color:var(--text-muted);transition:all .3s;padding:6px 16px;border-radius:50px}
+.logo{display:flex;align-items:center;line-height:0;flex-shrink:0}
+/* Negative margins shrink the flex row height while the image still paints at full size */
+nav .logo{margin:-38px 0;padding-top:14px;padding-bottom:0;position:relative;z-index:2}
+/* Lighten drops solid black (#000) to the backdrop so the logo reads on the glass bar without a box */
+.logo-img{
+  height:136px;width:auto;max-width:min(760px,90vw);object-fit:contain;display:block;
+  mix-blend-mode:lighten;
+  filter:drop-shadow(0 4px 32px rgba(0,0,0,0.55)) drop-shadow(0 0 56px rgba(108,60,225,0.35));
+}
+.logo--footer{display:block;margin-bottom:16px}
+.logo--footer .logo-img{height:168px;max-width:min(840px,95vw);filter:drop-shadow(0 8px 40px rgba(0,0,0,0.5)) drop-shadow(0 0 64px rgba(108,60,225,0.3))}
+@media(max-width:768px){
+  .logo-img{height:108px;max-width:min(600px,88vw)}
+  .logo--footer .logo-img{height:136px;max-width:min(720px,95vw)}
+  nav .logo{margin:-30px 0;padding-top:10px}
+}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{font-size:0.88rem;font-weight:500;color:var(--text-muted);transition:all .3s;padding:4px 12px;border-radius:50px}
 .nav-links a:hover{color:var(--text);background:rgba(108,60,225,0.2);box-shadow:0 0 12px rgba(108,60,225,0.3)}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
 .burger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
@@ -43,7 +58,7 @@ nav.scrolled::after{opacity:1}
 }
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative}
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 80px;position:relative}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);border-radius:50px;padding:8px 20px 8px 8px;font-size:0.85rem;margin-bottom:24px}
 .hero-badge span{background:linear-gradient(135deg,var(--primary),var(--coral));border-radius:50px;padding:4px 12px;font-size:0.75rem;font-weight:600}
